@@ -1,0 +1,18 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "../../AddButton.svelte",
+    "../../App.svelte",
+    "../../GroceriesList.svelte",
+    "../../GroceryItem.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n  import { groceriesStore } from '../stores';\n\n  function addGroceryItem() {\n    const text = prompt('Type text');\n\n    if (text) {\n      const groceryItem = {\n        text,\n        id: new Date().getTime(),\n      }\n      groceriesStore.update((groceries) => [...groceries, groceryItem]);\n    }\n  }\n</script>\n\n<button on:click={addGroceryItem}>+</button>\n\n<style>\n  button {\n    width: 60px;\n    height: 60px;\n    border-radius: 50%;\n    background: rgb(64, 177, 36);\n    color: white;\n    font-size: 50px;\n    border: none;\n    position: fixed;\n    bottom: 30px;\n    right: 30px;\n  }\n</style>\n",
+    "<script>\n  import Fa from 'svelte-fa';\n  import { faArrowAltCircleDown } from '@fortawesome/free-solid-svg-icons';\n\n  import AddButton from './AddButton.svelte';\n  import GroceriesList from './GroceriesList.svelte';\n</script>\n\n<header>\n  <h1>Groceries List</h1>\n  <button id=\"install-button\">\n    <Fa icon={faArrowAltCircleDown} />\n  </button>\n</header>\n<main>\n  <GroceriesList />\n  <AddButton />\n</main>\n\n<style>\n  header {\n    display: flex;\n    justify-content: space-between;\n    background: rgb(64, 177, 36);\n    color: white;\n    padding: 0 30px;\n  }\n\n  button {\n    background: none;\n    border: none;\n    color: white;\n    font-size: 50px;\n  }\n\n  @media all and (display-mode: standalone) {\n    button {\n      display: none;\n    }\n  }\n</style>\n",
+    "<script>\n  import Grocery from './GroceryItem.svelte';\n  import { groceriesStore } from '../stores';\n\n  let groceries;\n  const unsubscribe = groceriesStore.subscribe((state) => {\n\t\tgroceries = state;\n\t});\n\n</script>\n\n<ul>\n  {#each groceries as groceryItem (groceryItem.id)}\n    <li>\n      <Grocery bind:groceryItem />\n    </li>\n  {/each}\n</ul>\n\n<style>\n  ul {\n    display: flex;\n    flex-wrap: wrap;\n\n    list-style: none;\n    padding: 0;\n  }\n\n  li {\n    margin: 20px 10px;\n  }\n</style>\n",
+    "<script>\n  import { groceriesStore } from '../stores';\n\n  export let groceryItem;\n\n  function deleteGroceryItem() {\n    groceriesStore.update((groceries) => {\n      const deletedId = groceries.findIndex(({ id }) => groceryItem.id === id);\n      return [...groceries.slice(0, deletedId), ...groceries.slice(deletedId + 1)];\n    });\n  }\n</script>\n\n<span on:click={deleteGroceryItem}>{groceryItem.text}</span>\n\n<style>\n  span {\n    padding: 10px;\n    font-size: 22px;\n    background-color: rgb(255, 255, 169);\n  }\n</style>\n"
+  ],
+  "names": [],
+  "mappings": "AAmBE,MAAM,cAAC,CAAC,AACN,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CACZ,aAAa,CAAE,GAAG,CAClB,UAAU,CAAE,IAAI,EAAE,CAAC,CAAC,GAAG,CAAC,CAAC,EAAE,CAAC,CAC5B,KAAK,CAAE,KAAK,CACZ,SAAS,CAAE,IAAI,CACf,MAAM,CAAE,IAAI,CACZ,QAAQ,CAAE,KAAK,CACf,MAAM,CAAE,IAAI,CACZ,KAAK,CAAE,IAAI,AACb,CAAC;ACVD,MAAM,cAAC,CAAC,AACN,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,aAAa,CAC9B,UAAU,CAAE,IAAI,EAAE,CAAC,CAAC,GAAG,CAAC,CAAC,EAAE,CAAC,CAC5B,KAAK,CAAE,KAAK,CACZ,OAAO,CAAE,CAAC,CAAC,IAAI,AACjB,CAAC,AAED,MAAM,cAAC,CAAC,AACN,UAAU,CAAE,IAAI,CAChB,MAAM,CAAE,IAAI,CACZ,KAAK,CAAE,KAAK,CACZ,SAAS,CAAE,IAAI,AACjB,CAAC,AAED,OAAO,GAAG,CAAC,GAAG,CAAC,eAAe,UAAU,CAAC,AAAC,CAAC,AACzC,MAAM,cAAC,CAAC,AACN,OAAO,CAAE,IAAI,AACf,CAAC,AACH,CAAC;ACnBD,EAAE,cAAC,CAAC,AACF,OAAO,CAAE,IAAI,CACb,SAAS,CAAE,IAAI,CAEf,UAAU,CAAE,IAAI,CAChB,OAAO,CAAE,CAAC,AACZ,CAAC,AAED,EAAE,cAAC,CAAC,AACF,MAAM,CAAE,IAAI,CAAC,IAAI,AACnB,CAAC;ACdD,IAAI,cAAC,CAAC,AACJ,OAAO,CAAE,IAAI,CACb,SAAS,CAAE,IAAI,CACf,gBAAgB,CAAE,IAAI,GAAG,CAAC,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,AACtC,CAAC"
+}
