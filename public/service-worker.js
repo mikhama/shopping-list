@@ -1,14 +1,17 @@
 'use strict';
 
-const CACHE_NAME = 'static-cache-v1';
+const CACHE_NAME = 'static-cache-v2';
 
 const FILES_TO_CACHE = [
   './',
   './index.html',
   './install.js',
   './normalize.css',
+  './global.css',
   './build/bundle.css',
   './build/bundle.js',
+  './fonts/Exo2-Italic-VariableFont_wght.ttf',
+  './fonts/Exo2-VariableFont_wght.ttf'
 ];
 
 self.addEventListener('install', (event) => {

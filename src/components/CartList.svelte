@@ -3,7 +3,7 @@
   import { groceriesStore, cartStore } from '../stores';
 
   let groceries;
-  const unsubscribe = groceriesStore.subscribe((state) => {
+  const unsubscribe = cartStore.subscribe((state) => {
 		groceries = state;
 	});
 
@@ -14,9 +14,9 @@
     <li>
       <GroceryItem
         bind:groceryItem
-        bgColor="#C9E0F7"
-        fromStore={groceriesStore}
-        toStore={cartStore}
+        bgColor="#F19B85"
+        fromStore={cartStore}
+        toStore={groceriesStore}
       />
     </li>
   {/each}

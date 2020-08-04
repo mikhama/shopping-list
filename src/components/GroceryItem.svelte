@@ -1,22 +1,30 @@
 <script>
-  import { groceriesStore } from '../stores';
-
   export let groceryItem;
+  export let bgColor;
+  export let fromStore;
+  export let toStore;
 
   function deleteGroceryItem() {
-    groceriesStore.update((groceries) => {
+    fromStore.update((groceries) => {
       const deletedId = groceries.findIndex(({ id }) => groceryItem.id === id);
+
+      toStore.update((groceries) => [...groceries, groceryItem]);
+
       return [...groceries.slice(0, deletedId), ...groceries.slice(deletedId + 1)];
     });
   }
 </script>
 
-<span on:click={deleteGroceryItem}>{groceryItem.text}</span>
+<span
+  on:click={deleteGroceryItem}
+  style="background-color: {bgColor}"
+>
+  {groceryItem.text}
+</span>
 
 <style>
   span {
-    padding: 10px;
-    font-size: 22px;
-    background-color: rgb(255, 255, 169);
+    padding: 1rem;
+    font-size: 2.2rem;
   }
 </style>
