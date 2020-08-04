@@ -1,6 +1,7 @@
-button.svelte-skgj99{width:60px;height:60px;border-radius:50%;background:rgb(64, 177, 36);color:white;font-size:50px;border:none;position:fixed;bottom:30px;right:30px}
-header.svelte-11fous{display:flex;justify-content:space-between;background:rgb(64, 177, 36);color:white;padding:0 30px}button.svelte-11fous{background:none;border:none;color:white;font-size:50px}@media all and (display-mode: standalone){button.svelte-11fous{display:none}}
-ul.svelte-sxe7kl{display:flex;flex-wrap:wrap;list-style:none;padding:0}li.svelte-sxe7kl{margin:20px 10px}
-span.svelte-98jhvf{padding:10px;font-size:22px;background-color:rgb(255, 255, 169)}
+button.svelte-12uhcv5{width:6rem;border-radius:50%;background:rgb(36, 109, 177);color:white;font-size:3rem;border:none;right:3rem}input.svelte-12uhcv5{right:12rem;border:none;width:calc(100vw - 15rem);box-sizing:border-box;border-radius:5rem;background:rgb(222, 235, 248);font-size:2rem;padding:0 2rem}button.svelte-12uhcv5,input.svelte-12uhcv5{position:fixed;bottom:3rem;height:6rem}
+header.svelte-fn9tb2{display:flex;justify-content:space-between;background:black;color:white;padding:0 3rem}h1.svelte-fn9tb2{font-style:italic;font-variation-settings:'wght' 100}button.svelte-fn9tb2{background:none;border:none;color:white}.install-button.svelte-fn9tb2{font-size:5rem}.page-toggle-button.svelte-fn9tb2{color:rgb(240, 68, 25);font-size:3rem}@media all and (display-mode: standalone){button.svelte-fn9tb2{display:none}}
+ul.svelte-1xicvv9{display:flex;flex-wrap:wrap;list-style:none;padding:0}li.svelte-1xicvv9{margin:2rem 1rem}
+ul.svelte-1xicvv9{display:flex;flex-wrap:wrap;list-style:none;padding:0}li.svelte-1xicvv9{margin:2rem 1rem}
+span.svelte-1j8t4wk{padding:1rem;font-size:2.2rem}
 
 /*# sourceMappingURL=bundle.css.map */
