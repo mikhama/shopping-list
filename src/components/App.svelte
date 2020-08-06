@@ -2,14 +2,22 @@
   import Fa from 'svelte-fa';
   import { faArrowAltCircleDown, faCartArrowDown } from '@fortawesome/free-solid-svg-icons';
 
-  import AddButton from './AddButton.svelte';
-  import GroceriesList from './GroceriesList.svelte';
-  import CartList from './CartList.svelte';
-  import { pageStore } from '../stores';
+  import AddGroceryItem from './AddGroceryItem.svelte';
+  import ClearGroceryLists from './ClearGroceryLists.svelte';
+  import ItemsList from './ItemsList.svelte';
+  import { pageStore, groceriesStore, cartStore, localStorageService } from '../stores';
 
   let page;
   const unsubscribe = pageStore.subscribe((state) => {
 		page = state;
+  });
+
+  groceriesStore.subscribe((state) => {
+		localStorageService.saveGroceriesStore(state)
+  });
+
+  cartStore.subscribe((state) => {
+		localStorageService.saveCartStore(state)
   });
 
   function handlePageToggle() {
@@ -19,35 +27,46 @@
 
 <header>
   <h1>Groceries List</h1>
-  <button class="page-toggle-button" on:click={handlePageToggle}>
-    <Fa icon={faCartArrowDown} />
-  </button>
-  <button id="install-button" class="install-button">
-    <Fa icon={faArrowAltCircleDown} />
-  </button>
+  <div class="buttons">
+    <button class="page-toggle-button" on:click={handlePageToggle}>
+      <Fa icon={faCartArrowDown} />
+    </button>
+    <button id="install-button">
+      <Fa icon={faArrowAltCircleDown} />
+    </button>
+  </div>
 </header>
 <main>
   {#if page === 'groceries'}
-    <GroceriesList />
+    <ItemsList
+      fromStore={groceriesStore}
+      toStore={cartStore}
+      bgColor="#C9E0F7"
+      title="Need to buy"
+    />
+    <AddGroceryItem />
   {:else if page === 'cart'}
-    <CartList />
+    <ItemsList
+      fromStore={cartStore}
+      toStore={groceriesStore}
+      bgColor="#F19B85"
+      title="Groceries in cart"
+    />
+    <ClearGroceryLists />
   {/if}
-
-  <AddButton />
 </main>
 
 <style>
   header {
     display: flex;
     justify-content: space-between;
-    background: black;
+    background: rgb(16, 54, 88);
     color: white;
     padding: 0 3rem;
   }
 
   h1 {
-    font-style: italic;
-    font-variation-settings: 'wght' 100;
+    font-variation-settings: 'wght' 500;
   }
 
   button {
@@ -56,7 +75,11 @@
     color: white;
   }
 
-  .install-button {
+  .buttons {
+    display: flex;
+  }
+
+  #install-button {
     font-size: 5rem;
   }
 
@@ -66,7 +89,7 @@
   }
 
   @media all and (display-mode: standalone) {
-    button {
+    #install-button {
       display: none;
     }
   }
