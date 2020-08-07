@@ -10,5 +10,13 @@ export const localStorageService = new LocalStorageService();
 
 const { groceries, cart } = localStorageService.getStores();
 
-groceriesStore.set(groceries);
-cartStore.set(cart);
+const urlParams = new URLSearchParams(window.location.search);
+
+const groceriesParam = urlParams.get('groceries');
+const cartParam = urlParams.get('cart');
+
+const sharedGroceries = groceriesParam && JSON.parse(groceriesParam);
+const sharedCart = cartParam && JSON.parse(cartParam);
+
+groceriesStore.set(sharedGroceries || groceries);
+cartStore.set(sharedCart || cart);

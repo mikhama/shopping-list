@@ -1,6 +1,6 @@
 <script>
   import Fa from 'svelte-fa';
-  import { faArrowAltCircleDown, faCartArrowDown } from '@fortawesome/free-solid-svg-icons';
+  import { faArrowAltCircleDown, faCartArrowDown, faCopy } from '@fortawesome/free-solid-svg-icons';
 
   import AddGroceryItem from './AddGroceryItem.svelte';
   import ClearGroceryLists from './ClearGroceryLists.svelte';
@@ -12,22 +12,47 @@
 		page = state;
   });
 
+  let groceries;
   groceriesStore.subscribe((state) => {
+		groceries = state;
 		localStorageService.saveGroceriesStore(state)
   });
 
+  let cart;
   cartStore.subscribe((state) => {
+		cart = state;
 		localStorageService.saveCartStore(state)
   });
 
   function handlePageToggle() {
     pageStore.update((state) => state === 'groceries' ? 'cart' : 'groceries');
   }
+
+  function share() {
+    const text = `Groceries List for ${new Date().toDateString()}`;
+    const regexp = /https{0,1}:\/\/.{1,}?\//;
+    const [urlBase] = location.href.match(regexp);
+    const url = `${urlBase}?groceries=${encodeURIComponent(JSON.stringify(groceries))}&cart=${encodeURIComponent(JSON.stringify(cart))}`;
+
+    if ('share' in navigator) {
+      navigator.share({
+        url,
+        title: document.title,
+        text: text,
+      })
+    } else {
+      // Fallback
+      location.href = `https://t.me/share/?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+    }
+  }
 </script>
 
 <header>
   <h1>Groceries List</h1>
   <div class="buttons">
+    <button class="share-button" on:click={share}>
+      <Fa icon={faCopy} />
+    </button>
     <button class="page-toggle-button" on:click={handlePageToggle}>
       <Fa icon={faCartArrowDown} />
     </button>
@@ -89,6 +114,13 @@
   .page-toggle-button {
     color: rgb(240, 68, 25);
     font-size: 3rem;
+    width: 6rem;
+  }
+
+  .share-button {
+    color: white;
+    font-size: 3rem;
+    width: 6rem;
   }
 
   @media all and (display-mode: standalone) {
@@ -97,7 +129,7 @@
     }
   }
 
-  @media all and (max-width: 380px){
+  @media all and (max-width: 420px){
     h1 {
       font-size: 2.2rem;
     }
