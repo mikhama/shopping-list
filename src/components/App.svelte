@@ -30,7 +30,7 @@
 
   function share() {
     const text = `Groceries List for ${new Date().toDateString()}`;
-    const regexp = /https{0,1}:\/\/.{1,}?\//;
+    const regexp = /https{0,1}:\/\/.{1,}\//;
     const [urlBase] = location.href.match(regexp);
     const url = `${urlBase}?groceries=${encodeURIComponent(JSON.stringify(groceries))}&cart=${encodeURIComponent(JSON.stringify(cart))}`;
 
