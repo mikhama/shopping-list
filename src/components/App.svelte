@@ -63,10 +63,13 @@
     background: rgb(16, 54, 88);
     color: white;
     padding: 0 3rem;
+    height: 8rem;
+    align-items: center;
   }
 
   h1 {
     font-variation-settings: 'wght' 500;
+    font-size: 2.8rem;
   }
 
   button {
@@ -91,6 +94,12 @@
   @media all and (display-mode: standalone) {
     #install-button {
       display: none;
+    }
+  }
+
+  @media all and (max-width: 380px){
+    h1 {
+      font-size: 2.2rem;
     }
   }
 </style>

@@ -43,15 +43,17 @@
 
   ul {
     display: flex;
+    justify-content: flex-start;
     flex-wrap: wrap;
     list-style: none;
-    padding: 0;
-    margin: 2rem 2rem 0;
+    padding: 0 5.5rem 0 0;
+    margin: 2rem 0 0 2rem;
+    overflow-y: auto;
+    height: calc(100vh - 26rem);
+    align-content: flex-start;
   }
 
   li {
     margin: 1rem 1rem;
-    display: flex;
-    align-items: center;
   }
 </style>

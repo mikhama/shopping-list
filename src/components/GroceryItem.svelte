@@ -6,6 +6,7 @@
   export let bgColor;
   export let fromStore;
   export let toStore;
+  export
 
   function moveGroceryItem() {
     fromStore.update((groceries) => {
@@ -27,24 +28,31 @@
 
 </script>
 
-<button
-  on:click
-  on:dblclick={moveGroceryItem}
-  class="item"
-  style="background-color: {bgColor}"
-  type="button"
->
-  {groceryItem.text}
-</button>
-<button
-  on:click={deleteGroceryItem}
-  class="close-button"
-  type="button"
->
-  <Fa icon={faTimes} />
-</button>
+<div>
+  <button
+    on:dblclick={moveGroceryItem}
+    class="item"
+    style="background-color: {bgColor}"
+    type="button"
+  >
+    {groceryItem.text}
+  </button>
+  <button
+    on:click={deleteGroceryItem}
+    class="close-button"
+    type="button"
+  >
+    <Fa icon={faTimes} />
+  </button>
+</div>
 
 <style>
+  div {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
   .item {
     border: none;
     padding: 1rem;
@@ -63,6 +71,10 @@
     align-items: center;
     border-radius: 0 1rem 1rem 0;
     border: none;
+    position: absolute;
+    right: -3.7rem;
+    z-index: 100;
+    box-shadow: 0.3rem 0.1rem 0.8rem 0.1rem rgba(0, 0, 0, 0.53);
   }
 
   .close-button:active,
